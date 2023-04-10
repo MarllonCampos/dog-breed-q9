@@ -2,15 +2,14 @@ import React, { FormEvent, useState } from "react";
 import dogImage from "../assets/dog.svg";
 import Email from "../services/email";
 import clsx from "clsx";
-import EmailTips from "../components/FieldValidation";
-import FieldValidation from "../components/FieldValidation";
 import EmailValidation from "../components/EmailValidation";
 function Register() {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [email, setEmail] = useState("");
+
   function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newEmail = event.target.value;
-    if (newEmail.length == 0) return setIsEmailValid(true);
+    if (newEmail.length === 0) return setIsEmailValid(true);
     setIsEmailValid(Email.validateEmail(newEmail));
     setEmail(newEmail);
   }
@@ -18,7 +17,7 @@ function Register() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    if (Email.validateEmail(email) == false) return window.alert("Email não é válido por favor preencha corretamente");
+    if (Email.validateEmail(email) === false) return window.alert("Email não é válido por favor preencha corretamente");
   }
 
   return (
@@ -36,7 +35,7 @@ function Register() {
             <input
               className={clsx(
                 "appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-2 ring-blue-700 focus:border-transparent",
-                { "text-red-400 ring-red-400 focus:border-transparent border-red-300": isEmailValid == false }
+                { "text-red-400 ring-red-400 focus:border-transparent border-red-300": isEmailValid === false }
               )}
               id="email"
               type="email"

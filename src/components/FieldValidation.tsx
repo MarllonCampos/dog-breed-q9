@@ -10,7 +10,7 @@ const FieldValidation = ({ isValid = true, children, ...props }: FieldValidation
   return (
     <span
       className={clsx("block text-xs text-gray-400 mt-1 before:content-['*']", {
-        "text-red-300": isValid == false,
+        "text-red-300": isValid === false,
       })}
       {...props}
     >
