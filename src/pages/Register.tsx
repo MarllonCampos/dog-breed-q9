@@ -3,6 +3,8 @@ import dogImage from "../assets/dog.svg";
 import Email from "../services/email";
 import clsx from "clsx";
 import EmailTips from "../components/FieldValidation";
+import FieldValidation from "../components/FieldValidation";
+import EmailValidation from "../components/EmailValidation";
 function Register() {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [email, setEmail] = useState("");
@@ -42,13 +44,7 @@ function Register() {
               onChange={handleEmailChange}
             />
 
-            <EmailTips isValid={isEmailValid}>O email precisa ter um caractere antes e depois do "@"</EmailTips>
-            <EmailTips isValid={isEmailValid}>
-              O email precisa ter um domínio válido, como "gmail.com" ou "yahoo.co.uk"
-            </EmailTips>
-            <EmailTips isValid={isEmailValid}>
-              O email precisa ter um domínio válido, como "gmail.com" ou "yahoo.co.uk"
-            </EmailTips>
+            <EmailValidation isValid={isEmailValid} />
           </div>
           <div className="flex justify-center">
             <button
