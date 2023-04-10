@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import dogImage from "../assets/undraw_dog_c7i6.svg";
+import dogImage from "../assets/dog.svg";
 import Email from "../services/email";
 import clsx from "clsx";
 import EmailTips from "../components/FieldValidation";
