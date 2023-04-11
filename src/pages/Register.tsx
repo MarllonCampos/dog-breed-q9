@@ -1,12 +1,19 @@
 import React, { FormEvent, useState } from "react";
 import dogImage from "../assets/dog.svg";
+import maleImage from "../assets/male.svg";
 import Email from "../services/email";
 import clsx from "clsx";
 import EmailValidation from "../components/EmailValidation";
+import LoadingSpinner from "../components/loadingSpinner";
+import { api } from "../lib/api";
+import { Storage } from "../services/storage";
+import { useNavigate } from "react-router-dom";
+
 function Register() {
   const [isEmailValid, setIsEmailValid] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-
+  const navigate = useNavigate();
   function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newEmail = event.target.value;
     if (newEmail.length === 0) return setIsEmailValid(true);
@@ -16,8 +23,27 @@ function Register() {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    if (Email.validateEmail(email) === false) {
+      window.alert("Email não é válido por favor preencha corretamente");
+      setIsEmailValid(false);
+      return;
+    }
+    setLoading(true);
 
-    if (Email.validateEmail(email) === false) return window.alert("Email não é válido por favor preencha corretamente");
+    api
+      .post("/register", { email })
+      .then((response) => {
+        const token = response.data.user.token;
+        Storage.saveToken(token);
+        console.log("here?");
+        navigate("/list");
+      })
+      .catch(({ response }) => {
+        alert(response.data.error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (
@@ -28,6 +54,7 @@ function Register() {
 
       <div className="flex-1 bg-white flex items-center justify-center p-6">
         <form className="max-w-sm w-full" onSubmit={handleSubmit}>
+          <img src={maleImage} alt="a male avatar" className="max-w-[180px] aspect-square mx-auto mb-2" />
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
               Email
@@ -48,11 +75,11 @@ function Register() {
           <div className="flex justify-center">
             <button
               className="
-                bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded transition focus:outline-none  focus:ring-2 ring-offset-2 ring-blue-700 focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-blue-500"
+                bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded transition flex items-center justify-center focus:outline-none  focus:ring-2 ring-offset-2 ring-blue-700 focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-blue-500"
               disabled={!isEmailValid}
               type="submit"
             >
-              Login
+              {loading ? <LoadingSpinner /> : "Login"}
             </button>
           </div>
         </form>
