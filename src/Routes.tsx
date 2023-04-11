@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Route, Routes, BrowserRouter } from "react-router-dom";
 import Register from "./pages/Register";
 import List from "./pages/List";
-import Breed from "./pages/Breed";
 import { Storage } from "./services/storage";
+import BreedGallery from "./components/BreedGallery";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }): JSX.Element => {
   const token = Storage.getToken();
@@ -19,16 +19,6 @@ const AppRoutes: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Register />} />
-
-        <Route
-          path="/breed"
-          element={
-            <PrivateRoute>
-              <Breed />
-            </PrivateRoute>
-          }
-        />
-
         <Route
           path="/list"
           element={
@@ -36,7 +26,10 @@ const AppRoutes: React.FC = () => {
               <List />
             </PrivateRoute>
           }
-        />
+        >
+          <Route path=":breed" element={<BreedGallery />} />
+        </Route>
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
