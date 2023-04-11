@@ -15,7 +15,7 @@ const EmailValidation = ({ isValid = true }: EmailValidationProps) => {
         O email precisa ter um domínio válido, como &ldquo;gmail.com&rdquo; ou &ldquo;yahoo.co.uk&rdquo;
       </FieldValidation>
       <FieldValidation isValid={isValid}>
-        O email precisa ter um domínio válido, como &ldquo;gmail.com&rdquo; ou &ldquo;yahoo.co.uk&rdquo;
+        Caracteres especiais são permitidos em partes específicas do email.
       </FieldValidation>
     </>
   );
