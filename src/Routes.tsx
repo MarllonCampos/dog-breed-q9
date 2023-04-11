@@ -3,9 +3,10 @@ import { Navigate, Route, Routes, BrowserRouter } from "react-router-dom";
 import Register from "./pages/Register";
 import List from "./pages/List";
 import Breed from "./pages/Breed";
+import { Storage } from "./services/storage";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }): JSX.Element => {
-  const token = localStorage.getItem("token");
+  const token = Storage.getToken();
 
   if (!token) {
     return <Navigate to="/" />;
@@ -20,7 +21,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/" element={<Register />} />
 
         <Route
-          path="/:breed"
+          path="/breed"
           element={
             <PrivateRoute>
               <Breed />
