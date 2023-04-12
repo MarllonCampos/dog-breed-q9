@@ -35,7 +35,6 @@ function Register() {
       .then((response) => {
         const token = response.data.user.token;
         Storage.saveToken(token);
-        console.log("here?");
         navigate("/list");
       })
       .catch(({ response }) => {
@@ -52,7 +51,7 @@ function Register() {
         <img src={dogImage} alt="A dog" />
       </div>
 
-      <div className="flex-1 bg-white flex items-center justify-center p-6">
+      <div className="flex-1 bg-neutral-100 flex items-center justify-center p-6">
         <form className="max-w-sm w-full" onSubmit={handleSubmit}>
           <img src={maleImage} alt="a male avatar" className="max-w-[180px] aspect-square mx-auto mb-2" />
           <div className="mb-4">
@@ -79,7 +78,7 @@ function Register() {
               disabled={!isEmailValid}
               type="submit"
             >
-              {loading ? <LoadingSpinner /> : "Login"}
+              {loading ? <LoadingSpinner backgroundColor="text-blue-500" fillColor="fill-white" size="w-6" /> : "Login"}
             </button>
           </div>
         </form>
