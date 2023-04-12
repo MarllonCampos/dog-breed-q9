@@ -9,19 +9,19 @@ import clsx from "clsx";
 
 const breedList = [
   {
-    name: "Chihuahua",
+    name: "chihuahua",
     image: chihuahuaImage,
   },
   {
-    name: "Husky",
+    name: "husky",
     image: huskyImage,
   },
   {
-    name: "Pug",
+    name: "pug",
     image: pugImage,
   },
   {
-    name: "Labrador",
+    name: "labrador",
     image: labradorImage,
   },
 ];
@@ -30,9 +30,9 @@ function List() {
   const { breed } = useParams();
 
   return (
-    <div className="p-4 w-screen h-screen bg-neutral-100">
+    <div className="p-4 w-full h-screen min-h-screen flex flex-col bg-neutral-100">
       <button
-        onClick={() => navigation(-1)}
+        onClick={() => navigation("/")}
         className="flex items-center gap-2 mb-4 text-slate-400 font-semibold  hover:-translate-x-[5px] transition "
       >
         <svg
@@ -51,11 +51,14 @@ function List() {
           <Link
             to={`${name}`}
             key={id}
-            className="flex-shrink-0 w-40  items-center justify-center  p-2 rounded-md transition hover:shadow-md hover:bg-gradient-to-b hover:from-white  hover:-translate-x-[5px] hover:-translate-y-[5px] "
+            className={clsx(
+              "flex-shrink-0 w-40  items-center justify-center  p-2 rounded-md transition hover:shadow-md hover:bg-gradient-to-b hover:from-white  hover:-translate-x-[5px] hover:-translate-y-[5px] ",
+              { "border-teal-200 border-solid  border-b-2": name === breed }
+            )}
           >
             <img src={image} alt={`A dog of the race ${name}`} className="w-full h-32  rounded-lg " />
             <p
-              className={clsx("mt-2 text-blue-500 underline underline-offset-2 text-center font-semibold", {
+              className={clsx("mt-2 text-blue-500 underline underline-offset-2 text-center font-semibold capitalize", {
                 "text-cyan-500": name === breed,
               })}
             >
@@ -64,7 +67,6 @@ function List() {
           </Link>
         ))}
       </div>
-
       <Outlet />
     </div>
   );
