@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
 import LoadingSpinner from "./loadingSpinner";
 import clsx from "clsx";
+import { Storage } from "../services/storage";
 
 const BreedGallery: React.FC = () => {
   const { breed } = useParams();
@@ -11,6 +12,7 @@ const BreedGallery: React.FC = () => {
 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    console.log(Storage.getToken());
     setLoading(true);
     api
       .get("list", { params: { breed } })
