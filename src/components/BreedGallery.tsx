@@ -23,7 +23,7 @@ const BreedGallery: React.FC = () => {
   }, [breed]);
 
   useEffect(() => {
-    selectedImage == ""
+    selectedImage === ""
       ? window.document.body.classList.remove("overflow-y-hidden")
       : window.document.body.classList.add("overflow-y-hidden");
 
