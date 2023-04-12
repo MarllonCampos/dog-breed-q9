@@ -2,12 +2,17 @@ import React from "react";
 
 // import { Container } from './styles';
 
-const LoadingSpinner: React.FC = () => {
+interface LoadingSpinnerProps {
+  backgroundColor: string;
+  fillColor: string;
+  size: string;
+}
+const LoadingSpinner = ({ backgroundColor, fillColor, size }: LoadingSpinnerProps) => {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className="w-6 h-6 mr-2 text-blue-500 animate-spin fill-white"
+        className={`${size} aspect-square ${backgroundColor} animate-spin ${fillColor}`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
