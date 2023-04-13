@@ -38,7 +38,7 @@ const BreedGallery: React.FC = () => {
         </div>
       ) : (
         <>
-          <div className="flex flex-wrap gap-3 justify-around">
+          <div className="flex flex-wrap gap-3 justify-around" data-testid="dog-images-container">
             {images.map((url, id) => (
               <img
                 src={url}
@@ -47,14 +47,18 @@ const BreedGallery: React.FC = () => {
                 loading="lazy"
                 className="w-[100px] md:w-[200px] object-cover aspect-square rounded-md cursor-pointer transition hover:-translate-x-[5px] hover:-translate-y-[5px]"
                 onClick={() => setSelectedImage(url)}
+                data-testid="dog-images-thumbnail"
               />
             ))}
           </div>
 
           {selectedImage !== "" && (
-            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 overflow-y-hidden">
+            <div
+              className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 overflow-y-hidden"
+              data-testid="background-zoom"
+            >
               <div className="absolute inset-0 bg-black opacity-50 " onClick={() => setSelectedImage("")}></div>
-              <img src={selectedImage} alt={breed} className="max-h-full max-w-full z-[70]" />
+              <img src={selectedImage} alt={breed} className="max-h-full max-w-full z-[70]" data-testid="image-zoom" />
             </div>
           )}
         </>
