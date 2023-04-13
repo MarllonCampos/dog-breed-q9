@@ -23,11 +23,14 @@ function Register() {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    window.alert("x");
     if (Email.validateEmail(email) === false) {
-      window.alert("Email não é válido por favor preencha corretamente");
+      console.log("Entrou");
       setIsEmailValid(false);
       return;
     }
+    console.log("N Entrou");
+
     setLoading(true);
 
     api
@@ -67,6 +70,7 @@ function Register() {
               type="email"
               placeholder="Email"
               onChange={handleEmailChange}
+              data-testid="input-email"
             />
 
             <EmailValidation isValid={isEmailValid} />
@@ -77,6 +81,7 @@ function Register() {
                 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded transition flex items-center justify-center focus:outline-none  focus:ring-2 ring-offset-2 ring-blue-700 focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-blue-500"
               disabled={!isEmailValid}
               type="submit"
+              data-testid="register-button"
             >
               {loading ? <LoadingSpinner backgroundColor="text-blue-500" fillColor="fill-white" size="w-6" /> : "Login"}
             </button>
