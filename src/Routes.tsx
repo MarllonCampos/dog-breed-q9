@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navigate, Route, Routes, BrowserRouter } from "react-router-dom";
 import Register from "./pages/Register";
 import List from "./pages/List";
