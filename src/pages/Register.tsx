@@ -23,14 +23,10 @@ function Register() {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    window.alert("x");
     if (Email.validateEmail(email) === false) {
-      console.log("Entrou");
       setIsEmailValid(false);
       return;
     }
-    console.log("N Entrou");
-
     setLoading(true);
 
     api
