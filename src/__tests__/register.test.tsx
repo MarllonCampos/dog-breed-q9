@@ -11,28 +11,6 @@ vi.mock("react-router-dom", () => ({
 }));
 
 describe("Register", () => {
-  test("handleSubmit should show alert and not submit form with invalid email", async () => {
-    const postSpy = vi.spyOn(api, "post");
-
-    const { getByTestId } = render(<Register />);
-    const input = getByTestId("input-email");
-    const button = getByTestId("register-button");
-    fireEvent.change(input, { target: { value: "invalidEmail" } });
-    fireEvent.click(button);
-    const alertSpy = vi.fn();
-
-    const saveAlert = window.alert;
-    window.alert = () => {};
-    window.alert = alertSpy;
-
-    await waitFor(() => {
-      expect(postSpy).not.toBeCalled();
-
-      expect(alertSpy).toHaveBeenCalled();
-    });
-    window.alert = saveAlert;
-  });
-
   test("handleSubmit should submit form with valid email", async () => {
     const email = "test@example.com";
     const tokenValue = "someToken";
@@ -51,6 +29,20 @@ describe("Register", () => {
       expect(postSpy).toHaveBeenCalledWith("/register", { email });
       expect(Storage.getToken()).toBe(tokenValue);
       expect(navigateMock).toHaveBeenCalledWith("/list");
+    });
+  });
+  test("Submit button must be disabled and EmailValidation must be red ", async () => {
+    const email = "invalidEmail";
+
+    const { getByTestId } = render(<Register />);
+    const input = getByTestId("input-email");
+    const button = getByTestId("register-button");
+
+    fireEvent.change(input, { target: { value: email } });
+
+    await waitFor(() => {
+      expect(input.classList.contains("ring-red-400")).toBe(true);
+      expect(button).toHaveAttribute("disabled");
     });
   });
 });
